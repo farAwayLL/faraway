@@ -31,6 +31,7 @@ public class OrderController {
 
     @PostMapping(value = PREFIX + "/getOrderList")
     public BaseResponse getOrderList() {
+        //创建返回DTO
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
             List<OrderRecord> orderRecordList = orderService.getOrderList();
