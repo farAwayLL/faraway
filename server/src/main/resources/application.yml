@@ -1,14 +1,22 @@
 server:
+  #指定端口号
   port: 9098
   servlet:
+    #上下文路径，即localhost:9098/faraway/***
     context-path: /faraway
 
 spring:
+  #数据源
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_springboot_teach_02?useUnicode=true&amp;characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    #在mysql6.0.*版本以后，不需要指定driver，但是需要在url后面指定serverTimezone=UTC，否则报错
+    url: jdbc:mysql://localhost:3306/db_springboot_teach_02?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=UTC
     username: root
     password: root
+
+  #对返回的json数据中的时间格式化处理
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8   在mysql6.0.*版本之后，因为在url指定了serverTimezone=UTC，这里就不需要+8时区了
 
 mybatis:
   type-aliases-package: com.sboot.study.entity

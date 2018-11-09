@@ -18,11 +18,22 @@
     <!-- 对所有依赖版本号进行管理 -->
     <properties>
         <springboot.version>2.1.0.RELEASE</springboot.version>
-        <guava.version>19.0</guava.version>
-        <mysql.version>5.1.37</mysql.version>
+        <guava.version>27.0-jre</guava.version>
+        <mysql.version>8.0.13</mysql.version>
     </properties>
 
-    <!-- springboot依赖管理 没有这个springboot依赖拿不到 -->
+
+    <!-- 我们在使用时也不必控制依赖的版本，Spring Boot提供了默认的版本进行管理，
+         在我们升级Spring Boot的版本时，这些依赖的版本也会进行更新！-->
+    <!-- 方式一：继承Spring Boot的提供的父工程，该方式一般用于单一模块 -->
+    <!--<parent>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+        <!--<version>2.1.0.RELEASE</version>-->
+    <!--</parent>-->
+    <!-- 方式二： 通过scope=import的方式引入
+         在很多时候我们需要继承自有的父工程或由于其他设置无法使用Spring Boot提供的父工程。
+         此时可以通过scope=import的方式进行引入 -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -35,9 +46,9 @@
         </dependencies>
     </dependencyManagement>
 
+
     <!-- 项目依赖 -->
     <dependencies>
-
         <!-- springboot主依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,11 +87,9 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
-
         <!--spring boot打包插件-->
         <plugins>
             <plugin>
@@ -88,14 +97,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <!--资源目录配置-->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
     </build>
 
 </project>
