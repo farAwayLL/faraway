@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ConsoleAppender：把日志输出到控制台 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--输出格式为:时间+线程("[%thread]",这里删了，不要)+级别+日志名的长度+内容+换行 -->
+            <pattern>%date{HH:mm:ss}[%-5level]%logger{100} - %msg%n</pattern>
+            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- RollingFileAppender：生成日志文件 -->
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志名重名则日志追加 所以按天命名日志 可以实现一天一个日志 -->
+            <fileNamePattern>./logs/server/server.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <!--生成的日志文件的日志内容格式-->
+        <encoder>
+            <!--输出格式为:时间+线程("%thread",这里删了，不要)+级别+日志名的长度+内容+换行 -->
+            <pattern>%date{HH:mm:ss}[%-5level]%logger{100} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
+    <!-- 控制台输出日志级别 -->
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+    <!-- 保存日志级别 -->
+    <logger name="com.sboot.study" level="DEBUG">
+        <appender-ref ref="rollingFile"/>
+    </logger>
+</configuration>

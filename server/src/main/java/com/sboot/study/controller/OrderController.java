@@ -5,6 +5,8 @@ import com.sboot.study.entity.OrderRecord;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import com.sboot.study.service.OrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import java.util.Map;
  * @date: 2018/11/8 9:53
  * @description:
  */
+@Api("订单相关")
 @RestController
 public class OrderController {
 
@@ -29,6 +32,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @ApiOperation("获取订单列表")
     @PostMapping(value = PREFIX + "/getOrderList")
     public BaseResponse getOrderList() {
         //创建返回DTO
