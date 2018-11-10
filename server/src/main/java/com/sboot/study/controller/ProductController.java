@@ -52,7 +52,7 @@ public class ProductController {
             List<Product> productList = productJdbcTemplate.query(sql, new ProductMapper());
             Map<String, Object> returnMap = MapUtil.newHashMap();
             returnMap.put("productList", productList);
-            //手动打印日志，因为这里使用的事jdbctemplate，不走model层，所以日志扫描不到
+            //这里手动打印日志，因为这里使用的是jdbctemplate，不走model模块，所以日志扫描不到
             log.debug("Preparing：{}", sql);
             log.debug("Total：{}", productList.size());
             response.setData(returnMap);
