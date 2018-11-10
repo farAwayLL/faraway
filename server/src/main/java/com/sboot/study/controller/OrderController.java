@@ -21,7 +21,7 @@ import java.util.Map;
  * @date: 2018/11/8 9:53
  * @description:
  */
-@Api("订单相关")
+@Api(description = "订单相关")
 @RestController
 public class OrderController {
 
@@ -32,7 +32,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @ApiOperation("获取订单列表")
+    @ApiOperation(value = "获取订单列表")
     @PostMapping(value = PREFIX + "/getOrderList")
     public BaseResponse getOrderList() {
         //创建返回DTO

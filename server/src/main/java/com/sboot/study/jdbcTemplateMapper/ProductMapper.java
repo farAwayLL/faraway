@@ -1,4 +1,4 @@
-package com.sboot.study.dto;
+package com.sboot.study.jdbcTemplateMapper;
 
 import com.sboot.study.entity.Product;
 import org.springframework.jdbc.core.RowMapper;
@@ -6,7 +6,10 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductMapperDto implements RowMapper<Product> {
+/**
+ * 实现RowMapper <T>表示返回实体信息
+ */
+public class ProductMapper implements RowMapper<Product> {
     public Product mapRow(ResultSet resultSet, int i) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getInt("id"));
