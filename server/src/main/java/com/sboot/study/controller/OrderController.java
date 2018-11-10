@@ -1,6 +1,6 @@
 package com.sboot.study.controller;
 
-import com.google.common.collect.Maps;
+import cn.hutool.core.map.MapUtil;
 import com.sboot.study.entity.OrderRecord;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
@@ -39,7 +39,7 @@ public class OrderController {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
             List<OrderRecord> orderRecordList = orderService.getOrderList();
-            Map<String, Object> resMap = Maps.newHashMap();
+            Map<String, Object> resMap = MapUtil.newHashMap();
             resMap.put("orderRecordList", orderRecordList);
             response.setData(resMap);
         } catch (Exception e) {
