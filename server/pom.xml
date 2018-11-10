@@ -23,6 +23,8 @@
         <lombok.version>1.16.20</lombok.version>
         <swagger.version>2.6.1</swagger.version>
         <devtools.version>2.0.4.RELEASE</devtools.version>
+        <druid.version>1.1.12</druid.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
 
@@ -118,6 +120,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <version>${devtools.version}</version>
+        </dependency>
+
+        <!--阿里巴巴数据库连接池druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
         </dependency>
     </dependencies>
 

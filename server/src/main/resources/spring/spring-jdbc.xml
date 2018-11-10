@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       " >
+
+    <!--数据源一 - 主数据源(primary=true，正常走mybatis都是默认该数据源)-->
+    <bean id="orderDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="true" >
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${order.spring.datasource.url}" />
+        <property name="username" value="${order.spring.datasource.username}" />
+        <property name="password" value="${order.spring.datasource.password}" />
+
+    </bean>
+    <bean id="orderJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="orderDataSource"/>
+    </bean>
+
+
+    <!--数据源二 - 非主数据源(primary=false)-->
+    <bean id="productDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="false" >
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${product.spring.datasource.url}" />
+        <property name="username" value="${product.spring.datasource.username}" />
+        <property name="password" value="${product.spring.datasource.password}" />
+    </bean>
+    <bean id="productJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg name="dataSource" ref="productDataSource"/>
+    </bean>
+
+</beans>
