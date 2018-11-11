@@ -98,7 +98,7 @@ public class ProductController {
                 }
             });
             if (total == 0) {
-                response = new BaseResponse(StatusCode.FAIL.getCode(), "该商品不存在！");
+                response = new BaseResponse(StatusCode.ENTITY_IS_NULL.getCode(), "该商品不存在！");
             }
         } catch (Exception e) {
             log.error("修改商品信息失败！", e.fillInStackTrace());
@@ -123,7 +123,7 @@ public class ProductController {
                 }
             });
             if (total == 0) {
-                response = new BaseResponse(StatusCode.FAIL.getCode(), "该商品不存在！");
+                response = new BaseResponse(StatusCode.ENTITY_IS_NULL.getCode(), "该商品不存在！");
             }
         } catch (Exception e) {
             log.error("删除商品失败！", e.fillInStackTrace());

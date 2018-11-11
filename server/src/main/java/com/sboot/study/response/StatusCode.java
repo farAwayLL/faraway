@@ -8,7 +8,8 @@ package com.sboot.study.response;
 public enum StatusCode {
 
     SUCCESS(200,"success"),
-    FAIL(500,"fail");
+    FAIL(500,"fail"),
+    ENTITY_IS_NULL(501,"该实体不存在！");
 
     private Integer code;
     private String msg;
