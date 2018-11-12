@@ -9,12 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
@@ -59,6 +58,31 @@ public class ProductController {
         } catch (Exception e) {
             log.error("获取商品列表失败！", e.fillInStackTrace());
             response = new BaseResponse(StatusCode.FAIL.getCode(), "获取商品列表失败！");
+        }
+        return response;
+    }
+
+    @ApiOperation("根据ID获取商品信息")
+    @GetMapping(PREFIX + "/getProductByPrimaryId/{primaryId}")
+    @ResponseBody
+    public BaseResponse getProductByPrimaryId(@PathVariable Integer primaryId) {
+        BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
+        try {
+            //看一下前端接受的参数
+            log.debug("接受前端的参数为:{}", primaryId);
+            final String sql = "select * from product where id=?";
+            Product product = productJdbcTemplate.queryForObject(sql, new Object[]{primaryId}, new ProductMapper());
+            Map<String, Object> returnMap = MapUtil.newHashMap();
+            returnMap.put("product", product);
+            log.debug("Preparing：{}",sql);
+            log.debug("Total：{}",product.toString());
+            response.setData(returnMap);
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            response = new BaseResponse(StatusCode.ENTITY_IS_NULL.getCode(), "该商品不存在！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new BaseResponse(StatusCode.FAIL.getCode(), "获取商品信息失败！");
         }
         return response;
     }
