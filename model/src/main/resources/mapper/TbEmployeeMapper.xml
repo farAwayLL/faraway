@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sboot.study.mapper.TbEmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.sboot.study.entity.Employee">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="id_bo" jdbcType="VARCHAR" property="idBo"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="wbs_pwd" jdbcType="VARCHAR" property="wbsPwd"/>
+        <result column="financial_pwd" jdbcType="VARCHAR" property="financialPwd"/>
+        <result column="employee_id" jdbcType="VARCHAR" property="employeeId"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="certificates_type" jdbcType="INTEGER" property="certificatesType"/>
+        <result column="idcard_no" jdbcType="VARCHAR" property="idcardNo"/>
+        <result column="auth_idcard_no" jdbcType="VARCHAR" property="authIdcardNo"/>
+        <result column="certificates_valid" jdbcType="VARCHAR" property="certificatesValid"/>
+        <result column="auth_state" jdbcType="INTEGER" property="authState"/>
+        <result column="level" jdbcType="TINYINT" property="level"/>
+        <result column="auth_time" jdbcType="BIGINT" property="authTime"/>
+        <result column="studioName" jdbcType="VARCHAR" property="studioname"/>
+        <result column="recommender" jdbcType="VARCHAR" property="recommender"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="sex" jdbcType="TINYINT" property="sex"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="position_id" jdbcType="INTEGER" property="positionId"/>
+        <result column="org_id" jdbcType="INTEGER" property="orgId"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="other_org_id" jdbcType="VARCHAR" property="otherOrgId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modified_time" jdbcType="BIGINT" property="lastModifiedTime"/>
+        <result column="last_login_time" jdbcType="BIGINT" property="lastLoginTime"/>
+        <result column="yn" jdbcType="TINYINT" property="yn"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="on_job" jdbcType="TINYINT" property="onJob"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, id_bo, mobile, wbs_pwd, financial_pwd, employee_id, real_name, certificates_type, 
+    idcard_no, auth_idcard_no, certificates_valid, auth_state, `level`, auth_time, studioName, 
+    recommender, email, sex, area, position_id, org_id, `type`, `state`, other_org_id, 
+    create_time, last_modified_time, last_login_time, yn, nickname, on_job
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_employee
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.sboot.study.entity.Employee">
+    insert into tb_employee (id, id_bo, mobile, 
+      wbs_pwd, financial_pwd, employee_id, 
+      real_name, certificates_type, idcard_no, 
+      auth_idcard_no, certificates_valid, auth_state, 
+      `level`, auth_time, studioName, 
+      recommender, email, sex, 
+      area, position_id, org_id, 
+      `type`, `state`, other_org_id, 
+      create_time, last_modified_time, last_login_time, 
+      yn, nickname, on_job
+      )
+    values (#{id,jdbcType=INTEGER}, #{idBo,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{wbsPwd,jdbcType=VARCHAR}, #{financialPwd,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{certificatesType,jdbcType=INTEGER}, #{idcardNo,jdbcType=VARCHAR}, 
+      #{authIdcardNo,jdbcType=VARCHAR}, #{certificatesValid,jdbcType=VARCHAR}, #{authState,jdbcType=INTEGER}, 
+      #{level,jdbcType=TINYINT}, #{authTime,jdbcType=BIGINT}, #{studioname,jdbcType=VARCHAR}, 
+      #{recommender,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
+      #{area,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
+      #{type,jdbcType=TINYINT}, #{state,jdbcType=TINYINT}, #{otherOrgId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{lastModifiedTime,jdbcType=BIGINT}, #{lastLoginTime,jdbcType=BIGINT}, 
+      #{yn,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR}, #{onJob,jdbcType=TINYINT}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.sboot.study.entity.Employee">
+        insert into tb_employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="idBo != null">
+                id_bo,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="wbsPwd != null">
+                wbs_pwd,
+            </if>
+            <if test="financialPwd != null">
+                financial_pwd,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="certificatesType != null">
+                certificates_type,
+            </if>
+            <if test="idcardNo != null">
+                idcard_no,
+            </if>
+            <if test="authIdcardNo != null">
+                auth_idcard_no,
+            </if>
+            <if test="certificatesValid != null">
+                certificates_valid,
+            </if>
+            <if test="authState != null">
+                auth_state,
+            </if>
+            <if test="level != null">
+                `level`,
+            </if>
+            <if test="authTime != null">
+                auth_time,
+            </if>
+            <if test="studioname != null">
+                studioName,
+            </if>
+            <if test="recommender != null">
+                recommender,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="positionId != null">
+                position_id,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="state != null">
+                `state`,
+            </if>
+            <if test="otherOrgId != null">
+                other_org_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifiedTime != null">
+                last_modified_time,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="yn != null">
+                yn,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="onJob != null">
+                on_job,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="idBo != null">
+                #{idBo,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="wbsPwd != null">
+                #{wbsPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="financialPwd != null">
+                #{financialPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatesType != null">
+                #{certificatesType,jdbcType=INTEGER},
+            </if>
+            <if test="idcardNo != null">
+                #{idcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="authIdcardNo != null">
+                #{authIdcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatesValid != null">
+                #{certificatesValid,jdbcType=VARCHAR},
+            </if>
+            <if test="authState != null">
+                #{authState,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=TINYINT},
+            </if>
+            <if test="authTime != null">
+                #{authTime,jdbcType=BIGINT},
+            </if>
+            <if test="studioname != null">
+                #{studioname,jdbcType=VARCHAR},
+            </if>
+            <if test="recommender != null">
+                #{recommender,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=TINYINT},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="positionId != null">
+                #{positionId,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=TINYINT},
+            </if>
+            <if test="otherOrgId != null">
+                #{otherOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifiedTime != null">
+                #{lastModifiedTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=BIGINT},
+            </if>
+            <if test="yn != null">
+                #{yn,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="onJob != null">
+                #{onJob,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sboot.study.entity.Employee">
+        update tb_employee
+        <set>
+            <if test="idBo != null">
+                id_bo = #{idBo,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="wbsPwd != null">
+                wbs_pwd = #{wbsPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="financialPwd != null">
+                financial_pwd = #{financialPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatesType != null">
+                certificates_type = #{certificatesType,jdbcType=INTEGER},
+            </if>
+            <if test="idcardNo != null">
+                idcard_no = #{idcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="authIdcardNo != null">
+                auth_idcard_no = #{authIdcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatesValid != null">
+                certificates_valid = #{certificatesValid,jdbcType=VARCHAR},
+            </if>
+            <if test="authState != null">
+                auth_state = #{authState,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                `level` = #{level,jdbcType=TINYINT},
+            </if>
+            <if test="authTime != null">
+                auth_time = #{authTime,jdbcType=BIGINT},
+            </if>
+            <if test="studioname != null">
+                studioName = #{studioname,jdbcType=VARCHAR},
+            </if>
+            <if test="recommender != null">
+                recommender = #{recommender,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=TINYINT},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="positionId != null">
+                position_id = #{positionId,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                `type` = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="state != null">
+                `state` = #{state,jdbcType=TINYINT},
+            </if>
+            <if test="otherOrgId != null">
+                other_org_id = #{otherOrgId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifiedTime != null">
+                last_modified_time = #{lastModifiedTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=BIGINT},
+            </if>
+            <if test="yn != null">
+                yn = #{yn,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="onJob != null">
+                on_job = #{onJob,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sboot.study.entity.Employee">
+    update tb_employee
+    set id_bo = #{idBo,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      wbs_pwd = #{wbsPwd,jdbcType=VARCHAR},
+      financial_pwd = #{financialPwd,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      certificates_type = #{certificatesType,jdbcType=INTEGER},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      auth_idcard_no = #{authIdcardNo,jdbcType=VARCHAR},
+      certificates_valid = #{certificatesValid,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=INTEGER},
+      `level` = #{level,jdbcType=TINYINT},
+      auth_time = #{authTime,jdbcType=BIGINT},
+      studioName = #{studioname,jdbcType=VARCHAR},
+      recommender = #{recommender,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      area = #{area,jdbcType=VARCHAR},
+      position_id = #{positionId,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      `state` = #{state,jdbcType=TINYINT},
+      other_org_id = #{otherOrgId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_modified_time = #{lastModifiedTime,jdbcType=BIGINT},
+      last_login_time = #{lastLoginTime,jdbcType=BIGINT},
+      yn = #{yn,jdbcType=TINYINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      on_job = #{onJob,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <insert id="insertByBatch" parameterType="java.util.List">
+        insert into tb_employee
+        (id_bo, mobile, wbs_pwd, financial_pwd, employee_id, real_name, certificates_type,idcard_no, auth_idcard_no,
+        certificates_valid, auth_state, level, auth_time, studioName,recommender, email, sex, area, position_id,
+        org_id, type, state, other_org_id,create_time, last_modified_time, last_login_time, yn, nickname, on_job)
+        values
+        <foreach collection="list" item="employee" index="index" separator=",">
+            (#{employee.idBo,jdbcType=VARCHAR},
+            #{employee.mobile,jdbcType=VARCHAR},
+            #{employee.wbsPwd,jdbcType=VARCHAR},
+            #{employee.financialPwd,jdbcType=VARCHAR},
+            #{employee.employeeId,jdbcType=VARCHAR},
+            #{employee.realName,jdbcType=VARCHAR},
+            #{employee.certificatesType,jdbcType=INTEGER},
+            #{employee.idcardNo,jdbcType=VARCHAR},
+            #{employee.authIdcardNo,jdbcType=VARCHAR},
+            #{employee.certificatesValid,jdbcType=VARCHAR},
+            #{employee.authState,jdbcType=INTEGER},
+            #{employee.level,jdbcType=TINYINT},
+            #{employee.authTime,jdbcType=BIGINT},
+            #{employee.studioname,jdbcType=VARCHAR},
+            #{employee.recommender,jdbcType=VARCHAR},
+            #{employee.email,jdbcType=VARCHAR},
+            #{employee.sex,jdbcType=TINYINT},
+            #{employee.area,jdbcType=VARCHAR},
+            #{employee.positionId,jdbcType=INTEGER},
+            #{employee.orgId,jdbcType=INTEGER},
+            #{employee.type,jdbcType=TINYINT},
+            #{employee.state,jdbcType=TINYINT},
+            #{employee.otherOrgId,jdbcType=VARCHAR},
+            #{employee.createTime,jdbcType=BIGINT},
+            #{employee.lastModifiedTime,jdbcType=BIGINT},
+            #{employee.lastLoginTime,jdbcType=BIGINT},
+            #{employee.yn,jdbcType=TINYINT},
+            #{employee.nickname,jdbcType=VARCHAR},
+            #{employee.onJob,jdbcType=TINYINT})
+        </foreach>
+    </insert>
+</mapper>

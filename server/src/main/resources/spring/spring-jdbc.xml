@@ -10,7 +10,6 @@
         <property name="url" value="${order.spring.datasource.url}" />
         <property name="username" value="${order.spring.datasource.username}" />
         <property name="password" value="${order.spring.datasource.password}" />
-
     </bean>
     <bean id="orderJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="orderDataSource"/>
@@ -23,9 +22,20 @@
         <property name="url" value="${product.spring.datasource.url}" />
         <property name="username" value="${product.spring.datasource.username}" />
         <property name="password" value="${product.spring.datasource.password}" />
+        <!--<property name="defaultAutoCommit" value="false"/>--><!--在代码中设置了-->
     </bean>
     <bean id="productJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg name="dataSource" ref="productDataSource"/>
     </bean>
 
+    <!-- 数据源三 - 非主数据源(primary=false) 该数据源为了测试批量操作 -->
+    <bean id="employeeDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="false" >
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${employee.spring.datasource.url}" />
+        <property name="username" value="${employee.spring.datasource.username}" />
+        <property name="password" value="${employee.spring.datasource.password}" />
+    </bean>
+    <bean id="employeeJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg name="dataSource" ref="employeeDataSource"/>
+    </bean>
 </beans>

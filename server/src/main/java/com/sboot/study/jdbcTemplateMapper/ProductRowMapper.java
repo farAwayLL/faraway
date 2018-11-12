@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * 实现RowMapper <T>表示返回实体信息
  */
-public class ProductMapper implements RowMapper<Product> {
+public class ProductRowMapper implements RowMapper<Product> {
     public Product mapRow(ResultSet resultSet, int i) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getInt("id"));

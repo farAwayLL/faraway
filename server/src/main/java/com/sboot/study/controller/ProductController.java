@@ -2,7 +2,7 @@ package com.sboot.study.controller;
 
 import cn.hutool.core.map.MapUtil;
 import com.sboot.study.entity.Product;
-import com.sboot.study.jdbcTemplateMapper.ProductMapper;
+import com.sboot.study.jdbcTemplateMapper.ProductRowMapper;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import io.swagger.annotations.Api;
@@ -48,7 +48,7 @@ public class ProductController {
         try {
             //使用Jdbctemplate，查询多数据源数据，可以不用创建ProductMapper.java和ProductMapper.xml，因为不走mybatis
             final String sql = "select * from product";
-            List<Product> productList = productJdbcTemplate.query(sql, new ProductMapper());
+            List<Product> productList = productJdbcTemplate.query(sql, new ProductRowMapper());
             Map<String, Object> returnMap = MapUtil.newHashMap();
             returnMap.put("productList", productList);
             //这里手动打印日志，因为这里使用的是jdbctemplate，不走model模块，所以日志扫描不到
@@ -71,7 +71,7 @@ public class ProductController {
             //看一下前端接受的参数
             log.debug("接受前端的参数为:{}", primaryId);
             final String sql = "select * from product where id=?";
-            Product product = productJdbcTemplate.queryForObject(sql, new Object[]{primaryId}, new ProductMapper());
+            Product product = productJdbcTemplate.queryForObject(sql, new Object[]{primaryId}, new ProductRowMapper());
             Map<String, Object> returnMap = MapUtil.newHashMap();
             returnMap.put("product", product);
             log.debug("Preparing：{}",sql);
