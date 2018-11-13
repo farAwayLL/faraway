@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 实现RowMapper <T>表示返回实体信息
+ * @Author : faraway
+ * @Date : create in 2018/11/12 11:32
+ * @Description :
  */
 public class ProductRowMapper implements RowMapper<Product> {
     public Product mapRow(ResultSet resultSet, int i) throws SQLException {

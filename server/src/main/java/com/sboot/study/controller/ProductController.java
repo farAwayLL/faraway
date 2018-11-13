@@ -2,22 +2,18 @@ package com.sboot.study.controller;
 
 import cn.hutool.core.map.MapUtil;
 import com.sboot.study.entity.Product;
-import com.sboot.study.jdbcTemplateMapper.ProductRowMapper;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
+import com.sboot.study.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +28,8 @@ public class ProductController {
 
     private static final String PREFIX = "product";
 
-    //获取product非数据源 并注入到JdbcTemplate中
-    @Resource(name = "productJdbcTemplate")
-    private JdbcTemplate productJdbcTemplate;
+    @Autowired
+    private ProductService productService;
 
     /**
      * 查询商品列表
@@ -46,14 +41,9 @@ public class ProductController {
     public BaseResponse getProductList() {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            //使用Jdbctemplate，查询多数据源数据，可以不用创建ProductMapper.java和ProductMapper.xml，因为不走mybatis
-            final String sql = "select * from product";
-            List<Product> productList = productJdbcTemplate.query(sql, new ProductRowMapper());
+            List<Product> productList = productService.getProductList();
             Map<String, Object> returnMap = MapUtil.newHashMap();
             returnMap.put("productList", productList);
-            //这里手动打印日志，因为这里使用的是jdbctemplate，不走model模块，所以日志扫描不到
-            log.debug("Preparing：{}", sql);
-            log.debug("Total：{}", productList.size());
             response.setData(returnMap);
         } catch (Exception e) {
             log.error("获取商品列表失败！", e.fillInStackTrace());
@@ -68,14 +58,9 @@ public class ProductController {
     public BaseResponse getProductByPrimaryId(@PathVariable Integer primaryId) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            //看一下前端接受的参数
-            log.debug("接受前端的参数为:{}", primaryId);
-            final String sql = "select * from product where id=?";
-            Product product = productJdbcTemplate.queryForObject(sql, new Object[]{primaryId}, new ProductRowMapper());
+            Product product = productService.getProductByPrimaryId(primaryId);
             Map<String, Object> returnMap = MapUtil.newHashMap();
             returnMap.put("product", product);
-            log.debug("Preparing：{}",sql);
-            log.debug("Total：{}",product.toString());
             response.setData(returnMap);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
@@ -89,17 +74,13 @@ public class ProductController {
 
     @ApiOperation(value = "新增产品")
     @PostMapping(value = PREFIX + "/insertProduct")
-    public BaseResponse insertProduct(@RequestBody final ModelMap valueMap) {
+    public BaseResponse insertProduct(@RequestBody ModelMap valueMap) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            log.debug("接受前端数据为：{}", valueMap);
-            final String sql = "insert into product(name,product_no) values(?,?)";
-            productJdbcTemplate.update(sql, new PreparedStatementSetter() {
-                public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                    preparedStatement.setString(1, valueMap.get("name").toString());
-                    preparedStatement.setString(2, valueMap.get("productNo").toString());
-                }
-            });
+            int total = productService.insertProduct(valueMap);
+            Map<String, Object> returnMap = MapUtil.newHashMap();
+            returnMap.put("total", total);
+            response.setData(returnMap);
         } catch (Exception e) {
             log.error("插入商品失败！", e.fillInStackTrace());
             response = new BaseResponse(StatusCode.FAIL.getCode(), "插入商品失败！");
@@ -109,18 +90,13 @@ public class ProductController {
 
     @ApiOperation(value = "修改商品信息")
     @PostMapping(PREFIX + "/updateProduct")
-    public BaseResponse updateProduct(@RequestBody final ModelMap valueMap) {
+    public BaseResponse updateProduct(@RequestBody ModelMap valueMap) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            log.debug("接受到的数据：{}", valueMap);
-            final String sql = "update product set name=?,product_no=? where id=?";
-            int total = productJdbcTemplate.update(sql, new PreparedStatementSetter() {
-                public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                    preparedStatement.setString(1, valueMap.get("name").toString());
-                    preparedStatement.setString(2, valueMap.get("productNo").toString());
-                    preparedStatement.setInt(3, Integer.valueOf(valueMap.get("id").toString()));
-                }
-            });
+            int total = productService.updateProduct(valueMap);
+            Map<String, Object> returnMap = MapUtil.newHashMap();
+            returnMap.put("total", total);
+            response.setData(returnMap);
             if (total == 0) {
                 response = new BaseResponse(StatusCode.ENTITY_IS_NULL.getCode(), "该商品不存在！");
             }
@@ -136,16 +112,13 @@ public class ProductController {
      */
     @ApiOperation(value = "删除商品信息")
     @PostMapping(PREFIX + "/deleteProduct")
-    public BaseResponse deleteProduct(@RequestBody final ModelMap valueMap) {
+    public BaseResponse deleteProduct(@RequestBody ModelMap valueMap) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            log.debug("接收到的数据：{}", valueMap);
-            final String sql = "delete from product where id=?";
-            int total = productJdbcTemplate.update(sql, new PreparedStatementSetter() {
-                public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                    preparedStatement.setInt(1, Integer.valueOf(valueMap.get("id").toString()));
-                }
-            });
+            int total = productService.deleteProduct(valueMap);
+            Map<String, Object> returnMap = MapUtil.newHashMap();
+            returnMap.put("total", total);
+            response.setData(returnMap);
             if (total == 0) {
                 response = new BaseResponse(StatusCode.ENTITY_IS_NULL.getCode(), "该商品不存在！");
             }
@@ -155,5 +128,4 @@ public class ProductController {
         }
         return response;
     }
-
 }

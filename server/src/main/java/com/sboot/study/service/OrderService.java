@@ -1,7 +1,7 @@
 package com.sboot.study.service;
 
 import com.sboot.study.entity.OrderRecord;
-import com.sboot.study.mapper.OrderRecordMapper;
+import com.sboot.study.mybatisMapper.OrderRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

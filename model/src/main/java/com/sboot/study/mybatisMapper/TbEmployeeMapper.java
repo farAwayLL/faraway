@@ -1,4 +1,4 @@
-package com.sboot.study.mapper;
+package com.sboot.study.mybatisMapper;
 
 import com.sboot.study.entity.Employee;
 

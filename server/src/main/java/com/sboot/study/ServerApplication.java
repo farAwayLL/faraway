@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @description:
  */
 @SpringBootApplication
-@MapperScan(basePackages = "com.sboot.study.mapper")
+@MapperScan(basePackages = "com.sboot.study.mybatisMapper")
 @EnableSwagger2
 @ImportResource(locations = "classpath:spring/spring-jdbc.xml")
 public class ServerApplication {
