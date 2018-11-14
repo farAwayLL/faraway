@@ -3,16 +3,20 @@ package com.sboot.study.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.annotation.PostConstruct;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.Map;
 
 /**
  * @Author : faraway
@@ -30,6 +34,9 @@ public class MailService {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     public void sendEmail(ModelMap valueMap) throws Exception {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -49,9 +56,37 @@ public class MailService {
         mimeMessageHelper.setSubject(valueMap.get("subject").toString());
         mimeMessageHelper.setText(valueMap.get("text").toString());
         //加入附件
-        mimeMessageHelper.addAttachment("图片.jpg", new File("E:\\MyFile\\360picture\\225836.jpg"));
+        mimeMessageHelper.addAttachment(environment.getProperty("mail.send.attachment.one.name"),new File(environment.getProperty("mail.send.attachment.one.location")));
         mailSender.send(message);
         log.debug("发送带附件邮件成功！");
+    }
+
+    public void sendHtmlEmail(final ModelMap valueMap) throws Exception{
+        MimeMessage mimeMessage=mailSender.createMimeMessage();
+        //true表示开启带附件
+        MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true,"utf-8");
+        mimeMessageHelper.setFrom(environment.getProperty("mail.send.from"));
+        mimeMessageHelper.setTo(valueMap.get("to").toString().split(","));//可群发，“ , ”分割
+        mimeMessageHelper.setSubject(valueMap.get("subject").toString());
+        //true表示以html展示
+        mimeMessageHelper.setText(valueMap.get("html").toString(),true);
+
+        //TODO：加入附件
+        //messageHelper.addAttachment(environment.getProperty("mail.send.attachment.one.name"),new File(environment.getProperty("mail.send.attachment.one.location")));
+
+        mailSender.send(mimeMessage);
+        log.info("发送带HTML邮件成功--->");
+    }
+
+    /**
+     * 渲染模板
+     * @param templateFile
+     * @param paramMap
+     */
+    public String renderTemplate(final String templateFile,Map<String,Object> paramMap){
+        Context context=new Context(LocaleContextHolder.getLocale());
+        context.setVariables(paramMap);
+        return templateEngine.process(templateFile,context);
     }
 
 
