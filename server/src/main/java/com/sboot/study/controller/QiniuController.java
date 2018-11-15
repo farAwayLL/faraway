@@ -45,7 +45,7 @@ public class QiniuController {
                 return new BaseResponse(StatusCode.INVALID_PARAMS);
             }
 
-            //TODO：通用上传服务
+            //上传并返回地址
             final String location = qiniuService.uploadImage(file);
             log.info("该附件最终上传位置： {} ", location);
         } catch (Exception e) {
