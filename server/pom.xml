@@ -145,6 +145,13 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
         </dependency>
+
+        <!-- 七牛 -->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.12</version>
+        </dependency>
     </dependencies>
 
     <build>
