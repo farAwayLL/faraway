@@ -40,7 +40,7 @@ public class QiniuService {
     @Value("${qiniu.sk}")
     private String secketKey = null;
 
-    //
+    //七牛云储存空间
     @Value("${qiniu.bucket}")
     private String bucketName = null;
 

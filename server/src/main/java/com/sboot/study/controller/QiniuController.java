@@ -5,6 +5,7 @@ import com.sboot.study.entity.Appendix;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import com.sboot.study.service.QiniuService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * @Description :
  */
 
+@Api(description = "七牛云上传")
 @RestController
 public class QiniuController {
 
