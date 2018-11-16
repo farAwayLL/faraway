@@ -91,7 +91,7 @@ public class MailService {
 
 
     /**
-     * 上传文件名长度校验=false  该注解修饰，随着服务初始化而初始化
+     * 上传文件名长度校验=false 不校验     @PostConstruct该注解修饰，随着类加载而初始化
      */
     @PostConstruct
     public void init(){

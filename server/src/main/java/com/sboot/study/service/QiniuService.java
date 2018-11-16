@@ -5,11 +5,17 @@ import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import com.sboot.study.entity.Appendix;
+import com.sboot.study.mybatisMapper.AppendixMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @Author : faraway
@@ -38,9 +44,13 @@ public class QiniuService {
     @Value("${qiniu.bucket}")
     private String bucketName = null;
 
+    @Autowired
+    private AppendixMapper appendixMapper;
+
     /**
      * 上传图片七牛方法
      * 不管哪个方法都需要调用该方法，该方法是上传的核心方法
+     *
      * @param uploadBytes
      * @param name
      * @param token
@@ -58,17 +68,31 @@ public class QiniuService {
      *
      * @throws Exception
      */
-    public String uploadImage(MultipartFile imageFile) throws Exception {
+    public String uploadImage(MultipartFile imageFile, String moduleType) throws Exception {
         Auth auth = Auth.create(accessKey, secketKey);
         String token = auth.uploadToken(bucketName);//token其实就是验证ak,sk,bucket对不对
 
-        //相对路径
-        String urlPath = IMAGE_PREFIX + imageFile.getOriginalFilename();
+        //获取文件的文件名,用来保存到数据库
+        String fileName = imageFile.getOriginalFilename();
+        //改造文件上传的文件名字，保存到七牛云
+        String uploadFileName = fileName.substring(fileName.lastIndexOf("."));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        uploadFileName = sdf.format(new Date()) + uploadFileName;
+        //上传的相对路径
+        String urlPath = IMAGE_PREFIX + uploadFileName;
         //上传----------------参数：文件的字节码---------------相对路径
         Response response = uploadToQn(imageFile.getBytes(), urlPath, token);
 
-        //图片全路径,保存在数据库中
-        return qnDomainName + "/" + urlPath;
+        //图片全路径
+        String location = qnDomainName + "/" + urlPath;
+        //将上传的详细信息保存到数据库
+        Appendix appendix = new Appendix();
+        appendix.setLocation(location);
+        appendix.setModuleType(moduleType);
+        appendix.setName(fileName);
+        appendix.setSize(imageFile.getSize());
+        appendixMapper.insertSelective(appendix);
+        return location;
     }
 
 }

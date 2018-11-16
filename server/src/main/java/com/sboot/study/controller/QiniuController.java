@@ -1,5 +1,7 @@
 package com.sboot.study.controller;
 
+import com.google.common.base.Strings;
+import com.sboot.study.entity.Appendix;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import com.sboot.study.service.QiniuService;
@@ -40,13 +42,17 @@ public class QiniuController {
     public BaseResponse uploadImage(MultipartHttpServletRequest request) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
+            //获取上传的文件
             MultipartFile file = request.getFile("fileName");
-            if (file == null) {
+            //获取文件所属的模块(例如上传图片是属于订单or商品？)
+            String moduleType = request.getParameter("moduleType");
+            if (file == null || Strings.isNullOrEmpty(moduleType)) {
                 return new BaseResponse(StatusCode.INVALID_PARAMS);
             }
 
-            //上传并返回地址
-            final String location = qiniuService.uploadImage(file);
+            //开始上传，并返回地址
+            final String location = qiniuService.uploadImage(file,moduleType);
+            //将上传信息保存到数据库
             log.info("该附件最终上传位置： {} ", location);
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.FAIL.getCode(), "上传图片失败！");
