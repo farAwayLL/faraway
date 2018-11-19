@@ -1,7 +1,5 @@
 package com.sboot.study.controller;
 
-import cn.hutool.core.map.MapUtil;
-import com.google.common.collect.Maps;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import com.sboot.study.service.MailService;
@@ -15,8 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @Author : faraway
@@ -84,7 +80,7 @@ public class MailController {
         try {
             log.debug("接受前端邮件信息：{}", valueMap);
             String html = mailService.renderTemplate(environment.getProperty("mail.template.file.location"), valueMap);
-            valueMap.put("html",html);
+            valueMap.put("html", html);
             mailService.sendHtmlEmail(valueMap);
         } catch (Exception e) {
             log.error("发送带模板邮件失败！", e.fillInStackTrace());
