@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * product
- * @author 
+ * @author 测试多数据源的Product
  */
 public class Product implements Serializable {
     private Integer id;
