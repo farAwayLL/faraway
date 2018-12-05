@@ -3,7 +3,7 @@ package com.sboot.study.response;
 /**
  * @author: faraway
  * @date: 2018/11/8 10:08
- * @description:
+ * @description: 数据传输对象
  */
 public class BaseResponse<T> {
 

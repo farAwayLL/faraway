@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author : faraway
  * @Date : create in 2018/12/3 9:41
- * @Description :
+ * @Description :网站首页
  */
 
 @RestController

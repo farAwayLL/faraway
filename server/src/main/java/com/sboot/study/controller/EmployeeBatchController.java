@@ -1,6 +1,7 @@
 package com.sboot.study.controller;
 
 import cn.hutool.core.map.MapUtil;
+import com.google.common.collect.Maps;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
 import com.sboot.study.service.EmployeeBatchService;
@@ -17,9 +18,9 @@ import java.util.Map;
 /**
  * @Author : faraway
  * @Date : create in 2018/11/12 11:10
- * @Description : 批量操作测试
+ * @Description : 批量操作测试类  mybatis的批量操作效率大于jdbcTemplate
  */
-@Api(description = "人事数据批量操作")
+@Api(description = "从第三方数据库将人事数据批量导入到自己的数据库")
 @RestController
 public class EmployeeBatchController {
 
@@ -50,16 +51,20 @@ public class EmployeeBatchController {
         return response;
     }
 
+
     @ApiOperation("mybatis批量插入测试")
     @PostMapping(PREFIX + "/insertEmployeeByMybatis")
     public BaseResponse insertEmployeeByMybatis() {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
             long startTime = System.currentTimeMillis();
-            int tatal = employeeBatchService.insertEmployeeByMybatis();
+            int total = employeeBatchService.insertEmployeeByMybatis();
             long endTime = System.currentTimeMillis();
             long time = endTime - startTime;
             log.debug("mybatis批量插入耗时：{}", time);
+            Map<String,Object> returnMap = Maps.newHashMap();
+            returnMap.put("total",total);
+            response.setData(returnMap);
         } catch (Exception e) {
             e.printStackTrace();
             response = new BaseResponse(StatusCode.FAIL.getCode(), "mybatis批量插入失败！");

@@ -26,6 +26,8 @@
         <druid.version>1.1.12</druid.version>
         <junit.version>4.12</junit.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version><!--表示每次去获取最新版本-->
+        <httpclient.version>4.5.6</httpclient.version>
+        <json.version>2.4</json.version>
     </properties>
 
 
@@ -153,6 +155,20 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>${qiniu.version}</version>
         </dependency>
+
+        <!-- http跨域请求(业务代码模拟http请求) 构建HttpClientUtils工具类开始 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>${json.version}</version>
+            <classifier>jdk15</classifier><!--不加这个报错-->
+        </dependency>
+        <!-- 构建HttpClientUtils工具类开始结束 -->
     </dependencies>
 
     <build>
