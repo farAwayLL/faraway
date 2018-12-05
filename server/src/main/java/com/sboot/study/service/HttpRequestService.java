@@ -21,17 +21,17 @@ public class HttpRequestService {
     private String requestUrl;
 
     public void test() {
+        Map<String,String> params = Maps.newHashMap();
+        String json = "";
+
         //get请求
-        String s = HttpClientUtils.doGet("http://10.3.2.23:8899/ws/Information.asmx/GtInformation?idcard=9AF0FCDD63EB6AB89BF295F575176955062E478E97BBE21B");
+        String json1 = HttpClientUtils.doGet("url");
+        String json2 = HttpClientUtils.doGet("url",params);
+
         //post请求
-        Map<String,Object> params = Maps.newHashMap();
-        BaseResponse response = postRestTemplate(requestUrl + "/activity/myactivitylist", params);
+        String json3 = HttpClientUtils.doPost("url");
+        String json4 = HttpClientUtils.doPost("url",params);
+        String json5 = HttpClientUtils.doPostJson("url",json);
     }
 
-    /**
-     * POST请求
-     */
-    private BaseResponse postRestTemplate(String url, Object params) {
-        return new RestTemplate().postForEntity(url, params, BaseResponse.class).getBody();
-    }
 }

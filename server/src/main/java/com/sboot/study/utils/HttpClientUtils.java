@@ -1,7 +1,5 @@
 package com.sboot.study.utils;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,7 +9,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -21,7 +18,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.sf.json.JSONObject;
 
 /**
  * @Author : faraway
@@ -138,35 +134,6 @@ public class HttpClientUtils {
         }
 
         return resultString;
-    }
-
-    /**
-     * post请求
-     *
-     * @param url
-     * @param json
-     * @return
-     */
-    public static String doPostJsonObject(String url, JSONObject json) {
-
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(url);
-        JSONObject response = null;
-        try {
-            StringEntity s = new StringEntity(json.toString());
-            s.setContentEncoding("UTF-8");
-            s.setContentType("application/json");//发送json数据需要设置contentType
-            post.setEntity(s);
-            HttpResponse res = httpclient.execute(post);
-            if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                String result = EntityUtils.toString(res.getEntity());// 返回json格式：
-                response = JSONObject.fromObject(result);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-        return response.toString();
     }
 
 }

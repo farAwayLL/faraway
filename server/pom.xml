@@ -156,19 +156,12 @@
             <version>${qiniu.version}</version>
         </dependency>
 
-        <!-- http跨域请求(业务代码模拟http请求) 构建HttpClientUtils工具类开始 -->
+        <!-- http跨域请求(业务代码模拟http请求) 构建HttpClientUtils工具类 -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>${json.version}</version>
-            <classifier>jdk15</classifier><!--不加这个报错-->
-        </dependency>
-        <!-- 构建HttpClientUtils工具类开始结束 -->
     </dependencies>
 
     <build>
