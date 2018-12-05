@@ -24,7 +24,7 @@ import java.util.Map;
  * @Date : create in 2018/12/5 16:09
  * @Description :
  */
-public class HttpClientUtils {
+public class HttpClientUtil {
 
     public static String doGet(String url, Map<String, String> param) {
 

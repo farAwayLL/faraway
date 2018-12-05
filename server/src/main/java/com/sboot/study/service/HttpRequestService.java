@@ -1,11 +1,9 @@
 package com.sboot.study.service;
 
 import com.google.common.collect.Maps;
-import com.sboot.study.response.BaseResponse;
-import com.sboot.study.utils.HttpClientUtils;
+import com.sboot.study.utils.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
@@ -25,13 +23,13 @@ public class HttpRequestService {
         String json = "";
 
         //get请求
-        String json1 = HttpClientUtils.doGet("url");
-        String json2 = HttpClientUtils.doGet("url",params);
+        String json1 = HttpClientUtil.doGet("url");
+        String json2 = HttpClientUtil.doGet("url",params);
 
         //post请求
-        String json3 = HttpClientUtils.doPost("url");
-        String json4 = HttpClientUtils.doPost("url",params);
-        String json5 = HttpClientUtils.doPostJson("url",json);
+        String json3 = HttpClientUtil.doPost("url");
+        String json4 = HttpClientUtil.doPost("url",params);
+        String json5 = HttpClientUtil.doPostJson("url",json);
     }
 
 }
