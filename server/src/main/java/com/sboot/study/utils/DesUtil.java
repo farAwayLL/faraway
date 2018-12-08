@@ -5,6 +5,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * @Author : faraway
@@ -69,18 +71,24 @@ public class DesUtil {
     }
 
 
+    /**
+     * 测试
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         //加密和解密的key必须一致才能保证数据一致
         String key = "lyh66666";
+        String value = "Lyh645910";
 
-        String value = "431226199203036326";
-        String secret = java.net.URLEncoder.encode(value, "utf-8").toLowerCase();
-
+        String secret = URLEncoder.encode(value, "utf-8");
         System.out.println("加密数据:" + secret);
-        String a = toHexString(encrypt(secret, key)).toUpperCase();
 
+        //加密
+        String a = toHexString(encrypt(secret, key)).toUpperCase();
         System.out.println("加密后的数据为:" + a);
-        String b = java.net.URLDecoder.decode(decrypt(a, key), "utf-8");
+        //解密
+        String b = URLDecoder.decode(decrypt(a, key), "utf-8");
         System.out.println("解密后的数据:" + b);
 
     }
