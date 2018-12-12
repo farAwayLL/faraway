@@ -73,7 +73,6 @@ public class DesUtil {
 
     /**
      * 测试
-     * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
