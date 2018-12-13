@@ -15,7 +15,10 @@ import java.net.URLEncoder;
  */
 public class DesUtil {
 
-    //解密数据
+    /**
+     * 解密数据
+     */
+
     public static String decrypt(String message, String key) throws Exception {
 
         byte[] bytesrc = convertHexString(message);
@@ -43,7 +46,10 @@ public class DesUtil {
     }
 
 
-    //加密数据
+    /**
+     * 加密数据
+     */
+
     public static String toHexString(byte b[]) {
         StringBuffer hexString = new StringBuffer();
         for (int i = 0; i < b.length; i++) {
@@ -75,22 +81,22 @@ public class DesUtil {
      * 测试
      * @throws Exception
      */
-    public static void main(String[] args) throws Exception {
-        //加密和解密的key必须一致才能保证数据一致
-        String key = "lyh66666";
-        String value = "Lyh645910";
-
-        String secret = URLEncoder.encode(value, "utf-8");
-        System.out.println("加密数据:" + secret);
-
-        //加密
-        String a = toHexString(encrypt(secret, key)).toUpperCase();
-        System.out.println("加密后的数据为:" + a);
-        //解密
-        String b = URLDecoder.decode(decrypt(a, key), "utf-8");
-        System.out.println("解密后的数据:" + b);
-
-    }
+//    public static void main(String[] args) throws Exception {
+//        //加密和解密的key必须一致才能保证数据一致
+//        String key = "lyh66666";
+//        String value = "Lyh645910";
+//
+//        String secret = URLEncoder.encode(value, "utf-8");
+//        System.out.println("加密数据:" + secret);
+//
+//        //加密
+//        String a = toHexString(encrypt(secret, key)).toUpperCase();
+//        System.out.println("加密后的数据为:" + a);
+//        //解密
+//        String b = URLDecoder.decode(decrypt(a, key), "utf-8");
+//        System.out.println("解密后的数据:" + b);
+//
+//    }
 
 }
 
