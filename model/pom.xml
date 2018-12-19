@@ -13,7 +13,7 @@
 
     <properties>
         <mybatis-spring-boot.version>1.3.2</mybatis-spring-boot.version>
-        <mybatis-pagehelper.version>5.1.7</mybatis-pagehelper.version>
+        <mybatis-pagehelper.version>1.2.10</mybatis-pagehelper.version>
     </properties>
 
     <dependencies>
@@ -28,7 +28,7 @@
         <!--用于分页-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${mybatis-pagehelper.version}</version>
         </dependency>
 

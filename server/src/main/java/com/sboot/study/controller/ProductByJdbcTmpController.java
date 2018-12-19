@@ -22,9 +22,9 @@ import java.util.Map;
  */
 @Api(description = "产品相关")
 @RestController
-public class ProductController {
+public class ProductByJdbcTmpController {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductByJdbcTmpController.class);
 
     private static final String PREFIX = "product";
 

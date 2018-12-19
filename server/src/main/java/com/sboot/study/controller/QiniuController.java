@@ -1,6 +1,7 @@
 package com.sboot.study.controller;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 import com.sboot.study.entity.Appendix;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.Map;
 
 /**
  * @Author : faraway
@@ -46,16 +49,18 @@ public class QiniuController {
         try {
             //获取上传的文件
             MultipartFile file = request.getFile("fileName");
-            //获取文件所属的模块(例如上传图片是属于订单or商品？)
+            //获取文件所属的模块(例如上传图片是属于订单or商品?"moduleType":"订单"),根据实际情况可要可不要
             String moduleType = request.getParameter("moduleType");
             if (file == null || Strings.isNullOrEmpty(moduleType)) {
                 return new BaseResponse(StatusCode.INVALID_PARAMS);
             }
 
-            //开始上传，并返回地址
+            //上传逻辑,并返回地址,注:七牛云二级域名试用期为30天,过期将无法访问图片,需绑定已有域名
             final String location = qiniuService.uploadImage(file,moduleType);
-            //将上传信息保存到数据库
             log.info("该附件最终上传位置： {} ", location);
+            Map<String,Object> returnMap = Maps.newHashMap();
+            returnMap.put("location",location);
+            response.setData(returnMap);
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.FAIL.getCode(), "上传图片失败！");
             e.printStackTrace();

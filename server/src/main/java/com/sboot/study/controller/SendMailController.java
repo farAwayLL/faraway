@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(description = "发送邮件")
 @RestController
-public class MailController {
+public class SendMailController {
 
-    private static final Logger log = LoggerFactory.getLogger(MailController.class);
+    private static final Logger log = LoggerFactory.getLogger(SendMailController.class);
 
     private static final String PREFIX = "mail";
 

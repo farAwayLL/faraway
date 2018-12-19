@@ -22,9 +22,9 @@ import java.util.Map;
  */
 @Api(description = "测试分组且取每组最新数据")
 @RestController
-public class GroupSelectController {
+public class GroupBySelectController {
 
-    private static final Logger log = LoggerFactory.getLogger(GroupSelectController.class);
+    private static final Logger log = LoggerFactory.getLogger(GroupBySelectController.class);
 
     private static final String PREFIX = "/group";
 
