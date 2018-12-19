@@ -20,7 +20,7 @@ import java.util.Map;
  * create by faraway on 2018/12/14
  * description:mysql分组查询相关学习
  */
-@Api(description = "测试分组且取每组最新数据")
+@Api(description = "分组且取每组最新数据")
 @RestController
 public class GroupBySelectController {
 
@@ -32,8 +32,7 @@ public class GroupBySelectController {
     private GroupSelectService groupSelectService;
 
     /**
-     * 需求一：分组查询，且获取每组最新的一条数据
-     * 获取不同产品类型的最新一条
+     * 需求：分组查询，且获取每组最新的一条数据
      * @return
      */
     @ApiOperation("分组查询，且获取每组最新的一条数据")

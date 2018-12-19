@@ -25,7 +25,7 @@ public class BigDecimalUtil {
         return b1.multiply(b2);
     }
 
-    /**相除 能整除返回商，不能整除返回保留两位小数的商*/
+    /**相除 能整除直接返回，不能整除四舍五入保留两位小数*/
     public static BigDecimal divide(BigDecimal b1, BigDecimal b2) {
         BigDecimal bigDecimal = remainder(b1, b2);
         //余数为0，说明能被整除，直接返回
