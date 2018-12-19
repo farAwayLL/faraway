@@ -15,6 +15,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index() {
-        return "<center><h1 color='red'>欢迎来到浪的飞起个人网！</h1></center>";
+        return "<center><h1>欢迎来到浪的飞起个人网！</h1></center>";
     }
 }
