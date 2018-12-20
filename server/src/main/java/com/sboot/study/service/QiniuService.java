@@ -32,8 +32,7 @@ public class QiniuService {
     @Value("${qiniu.domain}")
     private String qnDomainName;
 
-    //                                      “/”
-    private String IMAGE_PREFIX = "image" + File.separator;
+    private String IMAGE_PREFIX = "image";
 
     //七牛云存储的用户标识
     @Value("${qiniu.ak}")
@@ -88,12 +87,12 @@ public class QiniuService {
         uploadFileName = sdf.format(new Date()) + uploadFileName;
 
         //相对路径(也可以认为就是文件名)
-        String urlPath = IMAGE_PREFIX + uploadFileName;
+        String urlPath = IMAGE_PREFIX + "/" + uploadFileName;
         //开始上传-----------------参数：文件的字节码-----------相对路径--token信息
-        Response response = uploadToQn(imageFile.getBytes(), urlPath, token);
+        uploadToQn(imageFile.getBytes(), urlPath, token);
 
         //绝对路径------------------------File.separator表示"/",保证在windows和linux系统都可行
-        String location = qnDomainName + File.separator + urlPath;
+        String location = qnDomainName + "/" + urlPath;
         //将上传的详细信息保存到数据库
         Appendix appendix = new Appendix();
         appendix.setLocation(location);

@@ -48,7 +48,7 @@ public class QiniuController {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
             //获取上传的文件
-            MultipartFile file = request.getFile("fileName");
+            MultipartFile file = request.getFile("file");
             //获取文件所属的模块(例如上传图片是属于订单or商品?"moduleType":"订单"),根据实际情况可要可不要
             String moduleType = request.getParameter("moduleType");
             if (file == null || Strings.isNullOrEmpty(moduleType)) {
