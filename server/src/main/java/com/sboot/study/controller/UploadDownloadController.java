@@ -2,10 +2,10 @@ package com.sboot.study.controller;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import com.sboot.study.entity.Appendix;
+import com.sboot.study.mybatisMapper.AppendixMapper;
 import com.sboot.study.response.BaseResponse;
 import com.sboot.study.response.StatusCode;
-import com.sboot.study.service.QiniuService;
+import com.sboot.study.service.UploadDownloadService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,17 +28,17 @@ import java.util.Map;
 
 @Api(description = "七牛云上传")
 @RestController
-public class QiniuController {
+public class UploadDownloadController {
 
-    private static final Logger log = LoggerFactory.getLogger(QiniuController.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadDownloadController.class);
 
     private static final String PREFIX = "qiniu";
 
     @Autowired
-    private QiniuService qiniuService;
+    private UploadDownloadService uploadDownloadService;
 
     /**
-     * 上传图片
+     * 上传文件
      *
      * @return
      */
@@ -56,10 +56,10 @@ public class QiniuController {
             }
 
             //上传逻辑,并返回地址,注:七牛云二级域名试用期为30天,过期将无法访问图片,需绑定已有域名
-            final String location = qiniuService.uploadImage(file,moduleType);
+            final String location = uploadDownloadService.uploadImage(file, moduleType);
             log.info("该附件最终上传位置： {} ", location);
-            Map<String,Object> returnMap = Maps.newHashMap();
-            returnMap.put("location",location);
+            Map<String, Object> returnMap = Maps.newHashMap();
+            returnMap.put("location", location);
             response.setData(returnMap);
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.FAIL.getCode(), "上传图片失败！");

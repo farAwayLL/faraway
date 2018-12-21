@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,9 +23,9 @@ import java.util.Date;
  * @Description :
  */
 @Service
-public class QiniuService {
+public class UploadDownloadService {
 
-    private static final Logger log = LoggerFactory.getLogger(QiniuService.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadDownloadService.class);
 
     //七牛分配的的二级域名,使用期限30天,过期将无法通过该域名访问图片
     @Value("${qiniu.domain}")
@@ -69,7 +68,7 @@ public class QiniuService {
     }
 
     /**
-     * 上传图片到七牛
+     * 上传文件到七牛
      *
      * @throws Exception
      */
