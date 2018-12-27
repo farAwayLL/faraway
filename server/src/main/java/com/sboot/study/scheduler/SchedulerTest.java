@@ -15,7 +15,7 @@ public class SchedulerTest {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulerTest.class);
 
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void sysout() {
         System.out.println("0.0.....");
     }

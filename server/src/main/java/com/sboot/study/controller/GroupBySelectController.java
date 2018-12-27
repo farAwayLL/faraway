@@ -35,7 +35,7 @@ public class GroupBySelectController {
      * 需求：分组查询，且获取每组最新的一条数据
      * @return
      */
-    @ApiOperation("分组查询，且获取每组最新的一条数据")
+    @ApiOperation("分组查询，且获取每组最新的(newest)一条数据")
     @PostMapping(PREFIX+"/getNewestDataByGorup")
     public BaseResponse getNewestDataByGorup(){
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
