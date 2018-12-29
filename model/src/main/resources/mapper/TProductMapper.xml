@@ -150,4 +150,35 @@
       is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectProductList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product
+    <where>
+      <if test="name != null">
+        `name` like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="price != null">
+        and price = #{price,jdbcType=DOUBLE}
+      </if>
+      <if test="isDelete != null">
+        and is_delete = #{isDelete,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <!--批量插入信息-->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO product(name, unit,price, stock, remark,purchase_date) VALUES
+
+    <foreach collection="list" item="p" index="index" separator=",">
+      (#{p.name,jdbcType=VARCHAR},
+       #{p.unit,jdbcType=VARCHAR},
+       #{p.price,jdbcType=DOUBLE},
+       #{p.stock,jdbcType=INTEGER},
+       #{p.remark,jdbcType=VARCHAR},
+       #{p.purchaseDate,jdbcType=DATE})
+    </foreach>
+  </insert>
 </mapper>

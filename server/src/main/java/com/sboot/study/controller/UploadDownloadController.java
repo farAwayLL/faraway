@@ -2,9 +2,8 @@ package com.sboot.study.controller;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import com.sboot.study.mybatisMapper.AppendixMapper;
 import com.sboot.study.response.BaseResponse;
-import com.sboot.study.response.StatusCode;
+import com.sboot.study.enums.StatusCode;
 import com.sboot.study.service.UploadDownloadService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;

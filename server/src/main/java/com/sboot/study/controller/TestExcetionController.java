@@ -5,7 +5,7 @@ import com.sboot.study.exception.NotFoundException;
 import com.sboot.study.exception.SystemException;
 import com.sboot.study.mybatisMapper.OrderRecordMapper;
 import com.sboot.study.response.BaseResponse;
-import com.sboot.study.response.StatusCode;
+import com.sboot.study.enums.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

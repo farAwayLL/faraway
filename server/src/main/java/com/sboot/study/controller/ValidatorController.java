@@ -2,7 +2,7 @@ package com.sboot.study.controller;
 
 import com.sboot.study.request.ValidateUser;
 import com.sboot.study.response.BaseResponse;
-import com.sboot.study.response.StatusCode;
+import com.sboot.study.enums.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
 package com.sboot.study.controller;
 
 import com.sboot.study.response.BaseResponse;
-import com.sboot.study.response.StatusCode;
+import com.sboot.study.enums.StatusCode;
 import com.sboot.study.service.MailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

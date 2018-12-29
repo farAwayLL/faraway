@@ -1,6 +1,8 @@
 package com.sboot.study.service;
 
+import com.google.common.collect.Maps;
 import com.sboot.study.entity.Product;
+import com.sboot.study.entity.TProduct;
 import com.sboot.study.jdbcTemplateMapper.ProductRowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,9 @@ import org.springframework.ui.ModelMap;
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : faraway
@@ -78,5 +82,24 @@ public class ProductService {
             }
         });
         return total;
+    }
+
+    public List<Map<Integer, Object>> manageProductList(List<TProduct> productList) {
+        List<Map<Integer, Object>> listMap = new LinkedList<Map<Integer, Object>>();
+
+        Map<Integer, Object> rowMap;
+        for (TProduct p : productList) {
+            rowMap = Maps.newHashMap();
+
+            rowMap.put(0, p.getName());
+            rowMap.put(1, p.getUnit());
+            rowMap.put(2, p.getPrice());
+            rowMap.put(3, p.getStock());
+            rowMap.put(4, p.getRemark());
+            rowMap.put(5, p.getPurchaseDate());
+
+            listMap.add(rowMap);
+        }
+        return listMap;
     }
 }

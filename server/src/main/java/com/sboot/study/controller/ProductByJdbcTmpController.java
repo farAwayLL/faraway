@@ -3,7 +3,7 @@ package com.sboot.study.controller;
 import cn.hutool.core.map.MapUtil;
 import com.sboot.study.entity.Product;
 import com.sboot.study.response.BaseResponse;
-import com.sboot.study.response.StatusCode;
+import com.sboot.study.enums.StatusCode;
 import com.sboot.study.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

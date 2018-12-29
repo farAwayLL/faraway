@@ -1,4 +1,4 @@
-package com.sboot.study.response;
+package com.sboot.study.enums;
 
 /**
  * @author: faraway
