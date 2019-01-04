@@ -28,8 +28,8 @@ import java.io.IOException;
 //        HttpServletResponse response = (HttpServletResponse) res;
 //        HttpServletRequest request = (HttpServletRequest) req;
 //
-//        //TODO：简单来说，CORS是一种访问机制，英文全称是Cross-Origin Resource Sharing
-//        //TODO：即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到Access-Control-Allow-Origin 即可
+        /**简单来说，CORS是一种访问机制，英文全称是Cross-Origin Resource Sharing*/
+        /**即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到Access-Control-Allow-Origin 即可*/
 //        response.setHeader("Access-Control-Allow-Origin",request.getHeader("*"));
 //        response.setHeader("Access-Control-Allow-Credentials", "true");
 //        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

@@ -90,7 +90,7 @@ public class ProductController {
                 Workbook wb = poiService.manageSheet(listMap, headers, "产品信息列表");
 
 
-                //TODO：将excel实例以流的形式写回浏览器
+                //将excel实例以流的形式写回浏览器
                 webOperationService.downloadExcel(response, wb, "产品信息列表.xlsx");
                 return "产品信息列表.xlsx";
             }
@@ -114,10 +114,10 @@ public class ProductController {
                 String fileName=file.getOriginalFilename();
                 String suffix= StringUtils.substring(fileName,fileName.lastIndexOf(".")+1);
 
-                //TODO：根据上传的excel文件构造workbook实例-注意区分xls与xlsx版本对应的实例
+                //根据上传的excel文件构造workbook实例-注意区分xls与xlsx版本对应的实例
                 Workbook wb=poiService.getWorkbook(file,suffix);
 
-                //TODO：读取上传上来的excel的数据到List<Product>中
+                //读取上传上来的excel的数据到List<Product>中
                 List<TProduct> products=poiService.readExcelData(wb);
                 log.debug("读取excel得到的数据：{} ",products);
 

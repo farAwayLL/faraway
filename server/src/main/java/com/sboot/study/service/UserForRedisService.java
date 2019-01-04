@@ -77,17 +77,17 @@ public class UserForRedisService {
      * @throws Exception
      */
     public User getUserDetailByIdV3(Integer userId) throws Exception{
-        //TODO：先查询缓存，再查数据库
+        /**先查询缓存，再查数据库*/
         final String key=String.format("user:info:key:%s",userId);
 
         User user;
         if (stringRedisTemplate.hasKey(key)){
-            //TODO：key存在于缓存
+            /**key存在于缓存*/
             String value=stringRedisTemplate.opsForValue().get(key);
             user=objectMapper.readValue(value,User.class);
 
         }else{
-            //TODO：key不存在于缓存->查数据库并存入缓存
+            /**key不存在于缓存->查数据库并存入缓存*/
             user=userMapper.selectByPrimaryKey(userId);
             if (user!=null){
                 //设置key，value，过期时间，时间单位。但是这么设置有一个问题，如果缓存中的数据是高并发灌进来的数据，
@@ -112,19 +112,19 @@ public class UserForRedisService {
      * @throws Exception
      */
     public User getUserDetailByIdV4(Integer userId) throws Exception{
-        //TODO：先查询缓存，再查数据库
+        /**先查询缓存，再查数据库*/
         final String key=String.format("user:info:key:%s",userId);
 
         User user = null;
         if (stringRedisTemplate.hasKey(key)){
-            //TODO：key存在于缓存
+            /**key存在于缓存*/
             String value=stringRedisTemplate.opsForValue().get(key);
             if (!Strings.isNullOrEmpty(value)){
                 user=objectMapper.readValue(value,User.class);
             }
 
         }else{
-            //TODO：key不存在于缓存->查数据库并存入缓存
+            /**key不存在于缓存->查数据库并存入缓存*/
             user=userMapper.selectByPrimaryKey(userId);
             if (user!=null){
                 //设置key，value，过期时间，时间单位。但是这么设置有一个问题，如果缓存中的数据是高并发灌进来的数据，
