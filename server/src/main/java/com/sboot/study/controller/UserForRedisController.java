@@ -8,7 +8,6 @@ import com.sboot.study.response.BaseResponse;
 import com.sboot.study.service.UserForRedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +37,8 @@ public class UserForRedisController {
             //User user = userForRedisService.getUserDetailByIdV1(userId);
             //User user = userForRedisService.getUserDetailByIdV2(userId);
             //User user = userForRedisService.getUserDetailByIdV3(userId);
-            User user = userForRedisService.getUserDetailByIdV4(userId);
+            //User user = userForRedisService.getUserDetailByIdV4(userId);
+            User user = userForRedisService.getUserDetailByIdV5(userId);
             Map<String, Object> resultMap = MapUtil.newHashMap();
             resultMap.put("user", user);
             response.setData(resultMap);
@@ -54,16 +54,16 @@ public class UserForRedisController {
      * 在对数据库进行更新修改操作时，主动往缓存中更新数据
      */
     @PostMapping("/insertUpdate")
-    public BaseResponse update(@RequestBody User user) {
+    public BaseResponse insertUpdate(@RequestBody User user) {
         BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
 
         try {
             if (user.getId()!=null && user.getId()>0){
                 userMapper.updateByPrimaryKeySelective(user);
-                userForRedisService.updateCache(user.getId());
+                userForRedisService.insertUpdate(user.getId());
             }else{
                 userMapper.insertSelective(user);
-                userForRedisService.updateCache(user.getId());
+                userForRedisService.insertUpdate(user.getId());
             }
         } catch (Exception e) {
             e.printStackTrace();
