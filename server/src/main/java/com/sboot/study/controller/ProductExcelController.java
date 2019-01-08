@@ -29,11 +29,14 @@ import java.util.Map;
  * description:用来测试excel导入导出
  */
 @Controller
-public class ProductController {
+public class ProductExcelController {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductExcelController.class);
 
     private static final String PREFIX = "excel/product";
+
+    //多sheet导出阈值，超过这个阈值就分sheet
+    private static final Integer VALUE = 1000;
 
     @Autowired
     private TProductMapper productMapper;
@@ -81,14 +84,15 @@ public class ProductController {
         try {
             if (productList != null && productList.size() > 0) {
                 //将产品信息列表List<TProduct>---->List<Map>
-                List<Map<Integer, Object>> listMap = productService.manageProductList(productList);
-
-                //数据量不多的时候单sheet导出
-                //Workbook wb=poiService.fillExcelSheetData(listMap,headers,"产品信息列表");
-
-                //数据量多则分sheet导出
-                Workbook wb = poiService.manageSheet(listMap, headers, "产品信息列表");
-
+                List<Map<Integer, Object>> dataList = productService.manageProductList(productList);
+                Workbook wb;
+                if (dataList.size() < VALUE) {
+                    //数据量不多的时候单sheet导出
+                    wb = poiService.fillExcelSheetData(dataList, headers, "产品信息列表");
+                } else {
+                    //数据量多则分sheet导出
+                    wb = poiService.manageSheet(dataList, headers, "产品信息列表");
+                }
 
                 //将excel实例以流的形式写回浏览器
                 webOperationService.downloadExcel(response, wb, "产品信息列表.xlsx");
@@ -102,32 +106,33 @@ public class ProductController {
 
     /**
      * 导入excel
+     *
      * @param request
      */
-    @RequestMapping(value=PREFIX+"/upload",method=RequestMethod.POST,consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = PREFIX + "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
-    public BaseResponse uploadExcel(MultipartHttpServletRequest request){
-        BaseResponse response=new BaseResponse(StatusCode.SUCCESS);
+    public BaseResponse uploadExcel(MultipartHttpServletRequest request) {
+        BaseResponse response = new BaseResponse(StatusCode.SUCCESS);
         try {
-            MultipartFile file=request.getFile("file");
-            if (file!=null){
-                String fileName=file.getOriginalFilename();
-                String suffix= StringUtils.substring(fileName,fileName.lastIndexOf(".")+1);
+            MultipartFile file = request.getFile("file");
+            if (file != null) {
+                String fileName = file.getOriginalFilename();
+                String suffix = StringUtils.substring(fileName, fileName.lastIndexOf(".") + 1);
 
                 //根据上传的excel文件构造workbook实例-注意区分xls与xlsx版本对应的实例
-                Workbook wb=poiService.getWorkbook(file,suffix);
+                Workbook wb = poiService.getWorkbook(file, suffix);
 
                 //读取上传上来的excel的数据到List<Product>中
-                List<TProduct> products=poiService.readExcelData(wb);
-                log.debug("读取excel得到的数据：{} ",products);
+                List<TProduct> products = poiService.readExcelData(wb);
+                log.debug("读取excel得到的数据：{} ", products);
 
                 productMapper.insertBatch(products);
 
-            }else{
+            } else {
                 return new BaseResponse(StatusCode.INVALID_PARAMS);
             }
         } catch (Exception e) {
-            log.error("上传excel导入数据 发生异常：",e.fillInStackTrace());
+            log.error("上传excel导入数据 发生异常：", e.fillInStackTrace());
             return new BaseResponse(StatusCode.FAIL);
         }
         return response;
@@ -136,14 +141,15 @@ public class ProductController {
     /**
      * 给运营人员一个excel空模板
      */
-    @RequestMapping(value = PREFIX+"/export/template",method = RequestMethod.GET)
-    public @ResponseBody String exportTemplate(HttpServletResponse response){
-        final String[] headers=new String[]{"名称","单位","单价","库存量","备注","采购日期"};
+    @RequestMapping(value = PREFIX + "/export/template", method = RequestMethod.GET)
+    public @ResponseBody
+    String exportTemplate(HttpServletResponse response) {
+        final String[] headers = new String[]{"名称", "单位", "单价", "库存量", "备注", "采购日期"};
         try {
-            Workbook wb=poiService.fillExcelSheetData(null,headers,"产品信息列表");
-            webOperationService.downloadExcel(response,wb,"产品信息列表.xlsx");
+            Workbook wb = poiService.fillExcelSheetData(null, headers, "产品信息列表");
+            webOperationService.downloadExcel(response, wb, "产品信息列表.xlsx");
             return "产品信息列表.xlsx";
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

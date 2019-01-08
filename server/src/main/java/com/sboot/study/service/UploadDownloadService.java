@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +48,9 @@ public class UploadDownloadService {
 
     @Autowired
     private AppendixMapper appendixMapper;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 上传都需要调用该方法，该方法是上传的核心方法
@@ -99,6 +103,12 @@ public class UploadDownloadService {
         appendix.setName(fileName);
         appendix.setSize(imageFile.getSize());
         appendixMapper.insertSelective(appendix);
+        //将地址保存到缓存
+        String key = String.format("qiniu:image:%s", sdf.format(new Date()));
+        if (!stringRedisTemplate.hasKey(key)) {
+            stringRedisTemplate.opsForValue().set(key, location);//永久保存
+            //stringRedisTemplate.opsForValue().set(key,location,24, TimeUnit.SECONDS);
+        }
         return location;
     }
 

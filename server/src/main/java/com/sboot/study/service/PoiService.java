@@ -38,8 +38,8 @@ public class PoiService {
      * @return
      */
     public Workbook manageSheet(List<Map<Integer, Object>> dataList, String[] headers, String sheetName) {
-        //设定每个sheet的大小，这里为了测试，大小设置为5
-        final Integer sheetSize = 5;
+        //设定每个sheet的大小
+        final Integer sheetSize = 1000;
         //获取列表的总数
         int dataTotal = dataList.size();
         //算出需要多少哥sheet  如果余数为0，则sheet数刚好为商；余数不为0，则sheet数为商+1
