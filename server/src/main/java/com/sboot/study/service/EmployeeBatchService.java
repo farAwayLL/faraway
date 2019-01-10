@@ -95,7 +95,7 @@ public class EmployeeBatchService {
     public Integer insertEmployeeByMybatis() throws Exception {
         //获取第三方人事数据  employeeJdbcTemplate是第三方数据源
         final String querySql = "select * from tb_employee limit 0,5000";
-        //使用jdbcTmplate获取数据
+        //使用jdbcTemplate获取数据
         List<Employee> employeeList = employeeJdbcTemplate.query(querySql, new EmployeeRowMapper());
         //使用mybatis插入数据
         int total = employeeMapper.insertByBatch(employeeList);
