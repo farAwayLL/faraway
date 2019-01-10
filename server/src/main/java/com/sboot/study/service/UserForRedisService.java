@@ -190,7 +190,7 @@ public class UserForRedisService {
             }
         }
         //获取大key所有的kv值
-        System.out.println(hashOperations.entries(maxKey));
+        //System.out.println(hashOperations.entries(maxKey));
         return user;
     }
 
