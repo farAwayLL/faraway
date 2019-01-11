@@ -83,7 +83,7 @@ public class BigDecimalUtil {
      */
     public static BigDecimal format(BigDecimal b) {
         return b.stripTrailingZeros();
-        //或者
+        //或者(上面可能会不好使)
         //DecimalFormat decimalFormat = new DecimalFormat("############.####");
         //return new BigDecimal(decimalFormat.format(b));
     }
