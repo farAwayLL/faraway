@@ -1,6 +1,7 @@
 package com.sboot.study.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * create by faraway on 2018/12/13
@@ -60,6 +61,12 @@ public class BigDecimalUtil {
     /**求相反数*/
     public static BigDecimal negate(BigDecimal b) {
         return b.negate();
+    }
+
+    /**保留四位有效小数位 例：10.1000 -->10.1; 0.0030 -->0.003; 10.0000 -->10*/
+    public static BigDecimal format(BigDecimal b) {
+        DecimalFormat decimalFormat = new DecimalFormat("############.####");
+        return new BigDecimal(decimalFormat.format(b));
     }
 
     /**
