@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * create by faraway on 2018/12/21
- * description: 测试自定义注解校验参数合法性
+ * description: 测试自定义注解校验参数合法性，见对象ValidateUser
  */
 @RestController
 public class ValidatorController {

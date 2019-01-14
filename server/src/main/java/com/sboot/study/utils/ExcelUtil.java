@@ -19,11 +19,11 @@ public class ExcelUtil {
      */
     public static String manageCell(Cell cell, String dateFormat) throws Exception{
         DecimalFormat decimalFormatZero = new DecimalFormat("0.00");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //日期格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
         DecimalFormat decimalFormatNumeric = new DecimalFormat("0.00");
 
         String value="";
-        CellType cellType=cell.getCellTypeEnum();
+        CellType cellType=cell.getCellType();
         if (CellType.STRING.equals(cellType)) {
             value=cell.getStringCellValue();
         }else if (CellType.NUMERIC.equals(cellType)) {

@@ -15,12 +15,14 @@ public class SexValidation implements ConstraintValidator<SexAnnotation,Integer>
 
     Set<Integer> sexArr;
 
+    @Override
     public void initialize(SexAnnotation constraintAnnotation) {
         sexArr=new HashSet<Integer>();
         sexArr.add(1);
         sexArr.add(2);
     }
 
+    @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
         if (sexArr.contains(value)){
             return true;
