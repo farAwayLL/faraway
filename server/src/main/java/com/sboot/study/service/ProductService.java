@@ -29,7 +29,7 @@ public class ProductService {
 
     private static final Logger log = LoggerFactory.getLogger(Product.class);
 
-    //获取product非数据源 并注入到JdbcTemplate中
+    //获取product非主数据源 并注入到JdbcTemplate中
     @Resource(name = "productJdbcTemplate")
     private JdbcTemplate productJdbcTemplate;
 
@@ -54,6 +54,7 @@ public class ProductService {
     public Integer insertProduct(final ModelMap valueMap) throws Exception {
         final String sql = "insert into product(name,product_no) values(?,?)";
         int total = productJdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, valueMap.get("name").toString());
                 preparedStatement.setString(2, valueMap.get("productNo").toString());
@@ -65,6 +66,7 @@ public class ProductService {
     public Integer updateProduct(final ModelMap valueMap) {
         final String sql = "update product set name=?,product_no=? where id=?";
         int total = productJdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, valueMap.get("name").toString());
                 preparedStatement.setString(2, valueMap.get("productNo").toString());
@@ -77,6 +79,7 @@ public class ProductService {
     public Integer deleteProduct(final ModelMap valueMap) {
         final String sql = "delete from product where id=?";
         int total = productJdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setInt(1, Integer.valueOf(valueMap.get("id").toString()));
             }
