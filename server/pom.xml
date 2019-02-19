@@ -27,7 +27,6 @@
         <junit.version>4.12</junit.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version><!--表示每次去获取最新版本-->
         <httpclient.version>4.5.6</httpclient.version>
-        <json.version>2.4</json.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <poi.version>4.0.0</poi.version>
     </properties>
