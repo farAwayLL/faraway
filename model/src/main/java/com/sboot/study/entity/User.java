@@ -21,6 +21,11 @@ public class User implements Serializable {
     private String password;
 
     /**
+     * 权限
+     */
+    private String auth;
+
+    /**
      * 岗位
      */
     private String posName;
@@ -52,6 +57,12 @@ public class User implements Serializable {
      */
     private String email;
 
+    /**
+     * 状态 0:禁用 1:启用
+     */
+    private Byte status;
+
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -76,6 +87,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 
     public String getPosName() {
@@ -132,5 +151,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }

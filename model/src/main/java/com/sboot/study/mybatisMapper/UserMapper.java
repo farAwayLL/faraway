@@ -1,6 +1,7 @@
 package com.sboot.study.mybatisMapper;
 
 import com.sboot.study.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,7 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User selectUserByUsernameAndPassword(@Param("username") String username);
+
 }

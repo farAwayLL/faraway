@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>401</title>
+</head>
+<body>
+<div>
+    <h2>没有权限！</h2>
+    <h3>很抱歉，您还没有该页面的访问权限~</h3>
+
+    <div>
+        请联系管理员获得访问权限。<br/>
+        <br/>
+        您可以先回主页压压惊: <br/>
+        <a href="index.html" th:href="@{/index}">回到主页</a>
+        <br/><br/>
+        <a href="login.html" th:href="@{/logout}">退出登录</a>
+    </div>
+</div>
+</body>
+</html>
